@@ -1,6 +1,6 @@
 package net.javac.utils;
 
-import net.JavacPlus.buffer.entities.EMessage;
+import net.javac.entities.EMessage;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 import java.util.Objects;

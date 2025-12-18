@@ -1,5 +1,6 @@
 package net.javac.buffer.impl;
 
+import net.javac.Javac;
 import net.javac.buffer.AbstractBuffer;
 import net.javac.buffer.BufferRegistry;
 import net.javac.entities.EMessage;
