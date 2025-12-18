@@ -18,7 +18,6 @@ public class Javac {
     static void main() {
         var token = dotenv.get("TOKEN");
         if (token == null) throw new RuntimeException("TOKEN not found!");
-
         try {
             new Javac().init(token);
         } catch (InterruptedException e) {
@@ -34,9 +33,8 @@ public class Javac {
         build(token, GatewayIntent.GUILD_MEMBERS, GatewayIntent.GUILD_MESSAGES, GatewayIntent.MESSAGE_CONTENT);
         shardManager.getShards().getFirst().getSelfUser().getJDA().awaitReady();
 
-        bufferManager.registerBuffer("guild_m", new GuildMessageBuffer(100));
-        GuildMessageBuffer guildMessage = (GuildMessageBuffer) bufferManager.getBuffer("guild_m");
-
+        bufferManager.registerBuffer("guild_message", new GuildMessageBuffer(100));
+        GuildMessageBuffer guildMessage = (GuildMessageBuffer) bufferManager.getBuffer("guild_message");
         shardManager.addEventListener(new Listener(guildMessage));
     }
 }
