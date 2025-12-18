@@ -1,12 +1,12 @@
 package net.javac.buffer.impl;
 
-import net.JavacPlus.buffer.AbstractBuffer;
-import net.JavacPlus.buffer.entities.EMessage;
-import net.JavacPlus.buffer.registry.BufferRegistryPolicy;
+import net.javac.buffer.AbstractBuffer;
+import net.javac.buffer.BufferRegistry;
+import net.javac.entities.EMessage;
 
 public class GuildMessageBuffer extends AbstractBuffer<String, EMessage> {
-    public GuildMessageBuffer(BufferRegistryPolicy<String, EMessage> registry) {
-        super(registry);
+    public GuildMessageBuffer(int max) {
+        super(max);
     }
 
     @Override

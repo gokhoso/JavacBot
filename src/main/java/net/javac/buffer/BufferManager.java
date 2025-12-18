@@ -3,26 +3,21 @@ package net.javac.buffer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.HashSet;
-import java.util.Optional;
+import java.util.HashMap;
 
 public class BufferManager {
     private final Logger logger = LoggerFactory.getLogger(BufferManager.class);
+    private final HashMap<String, AbstractBuffer<?, ?>> buffers = new HashMap<>();
 
-    private final HashSet<AbstractBuffer<?, ?>> buffers = new HashSet<>();
-
-    public void registerBuffer(AbstractBuffer<?, ?> buffer) {
-        buffers.add(buffer);
+    public void registerBuffer(String bufferId, AbstractBuffer<?, ?> buffer) {
+        buffers.put(bufferId, buffer);
     }
 
-    public void deleteBuffer(AbstractBuffer<?, ?> buffer) {
-        buffers.remove(buffer);
+    public void deleteBuffer(String bufferId) {
+        buffers.remove(bufferId);
     }
 
-    public Optional<? extends AbstractBuffer<?, ?>> getBuffer(String name) {
-        return buffers.stream()
-                .filter(l -> l.getName().equals(name))
-                .map(l -> (AbstractBuffer<?, ?>) l)
-                .findFirst();
+    public AbstractBuffer<?, ?> getBuffer(String bufferId) {
+        return buffers.get(bufferId);
     }
 }
