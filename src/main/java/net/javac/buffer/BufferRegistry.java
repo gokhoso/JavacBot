@@ -2,7 +2,6 @@ package net.javac.buffer;
 
 import com.github.benmanes.caffeine.cache.Cache;
 import com.github.benmanes.caffeine.cache.Caffeine;
-import net.javac.Javac;
 import org.jspecify.annotations.NonNull;
 
 public class BufferRegistry<K, V> {
