@@ -26,6 +26,9 @@ dependencies {
 
     // https://mvnrepository.com/artifact/io.github.cdimascio/java-dotenv
     implementation("io.github.cdimascio:java-dotenv:5.2.2")
+
+    // https://mvnrepository.com/artifact/org.yaml/snakeyaml
+    implementation("org.yaml:snakeyaml:2.5")
 }
 
 test {
