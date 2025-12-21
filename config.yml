@@ -1,0 +1,15 @@
+bot:
+  prefix: "j."
+  guild_id: "1416780729127276737"
+
+config:
+  buffer_size: 100
+  service_pool: 4
+
+channels:
+  general: "1416780730301677630"
+  log: "1445060993024659620"
+  count: "1432704331798548601"
+
+roles:
+  member: "1451621037396725902"
