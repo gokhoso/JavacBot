@@ -6,33 +6,31 @@ import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.events.message.MessageUpdateEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.javac.buffer.impl.GuildMessageBuffer;
-import net.javac.entities.EMessage;
+import net.javac.log.LogManager;
 import net.javac.utils.EMessageBuilder;
 import org.jetbrains.annotations.NotNull;
 
 public class Listener extends ListenerAdapter {
-    final GuildMessageBuffer messageBuffer;
+    final LogManager logManager;
+    final GuildMessageBuffer guildMessageBuffer;
 
-    public Listener(GuildMessageBuffer messageBuffer) {
-        this.messageBuffer = messageBuffer;
+    public Listener(GuildMessageBuffer guildMessageBuffer, LogManager logManager) {
+        this.logManager = logManager;
+        this.guildMessageBuffer = guildMessageBuffer;
     }
 
     @Override
     public void onGenericEvent(@NotNull GenericEvent event) {
         if (event instanceof MessageReceivedEvent messageEvent) {
-            var msg = new EMessageBuilder(messageEvent).build();
-            messageBuffer.append(messageEvent.getMessageId(), msg);
+            guildMessageBuffer.append(messageEvent.getMessageId(), new EMessageBuilder(messageEvent).build());
         }
 
         if (event instanceof MessageDeleteEvent messageDeleteEvent) {
-            EMessage msg = messageBuffer.get(messageDeleteEvent.getMessageId());
-            System.out.println(msg.content());
+            logManager.getLogger(MessageDeleteEvent.class).ifPresent(logger -> logger.log(messageDeleteEvent));
         }
 
         if (event instanceof MessageUpdateEvent messageUpdateEvent) {
-            var oldMessage = messageBuffer.get(messageUpdateEvent.getMessageId());
-            var newMessage = messageUpdateEvent.getMessage();
-            System.out.printf("Old Message: %s%n New Message: %s%n", oldMessage, newMessage);
+            logManager.getLogger(MessageUpdateEvent.class).ifPresent(logger -> logger.log(messageUpdateEvent));
         }
     }
 }
