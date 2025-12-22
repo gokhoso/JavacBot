@@ -7,6 +7,7 @@ import net.dv8tion.jda.api.events.message.MessageUpdateEvent;
 import net.javac.buffer.impl.GuildMessageBuffer;
 import net.javac.entities.EMessage;
 import net.javac.log.AbstractLogger;
+import net.javac.utils.TextUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -43,10 +44,10 @@ public class UpdatedMessageLogger extends AbstractLogger<MessageUpdateEvent> {
 
         if (message.getMember() != null) {
             authorAvatarUrl = message.getMember().getEffectiveAvatarUrl();
-            authorMention = createUserMention(message.getMember().getId());
+            authorMention = TextUtils.createUserMention(message.getMember().getId());
         }
 
-        channelMention = createChannelMention(message.getChannelId());
+        channelMention = TextUtils.createChannelMention(message.getChannelId());
     }
 
     @Override
