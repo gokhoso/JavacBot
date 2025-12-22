@@ -53,12 +53,4 @@ public abstract class AbstractLogger<T> {
 
         return content;
     }
-
-    public String createChannelMention(String channelId) {
-        return String.format("<#%s>", channelId);
-    }
-
-    public String createUserMention(String userId) {
-        return String.format("<@%s>", userId);
-    }
 }
