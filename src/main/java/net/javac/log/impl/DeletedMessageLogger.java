@@ -6,6 +6,7 @@ import net.dv8tion.jda.api.events.message.MessageDeleteEvent;
 import net.javac.buffer.impl.GuildMessageBuffer;
 import net.javac.entities.EMessage;
 import net.javac.log.AbstractLogger;
+import net.javac.utils.TextUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -44,8 +45,8 @@ public class DeletedMessageLogger extends AbstractLogger<MessageDeleteEvent> {
         authorName = member.getUser().getName();
         guild = member.getGuild();
         authorAvatarUrl = member.getEffectiveAvatarUrl();
-        authorMention = createUserMention(member.getId());
-        channelMention = createChannelMention(message.channelId());
+        authorMention = TextUtils.createUserMention(member.getId());
+        channelMention = TextUtils.createChannelMention(message.channelId());
     }
 
     @Override
