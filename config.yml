@@ -1,28 +1,30 @@
 bot:
   prefix: "j."
-  guild_id: "1416780729127276737"
 
 config:
   buffer_size: 100
   service_pool: 4
 
-welcomeMessage: # The embed will be sent when the member joins.
-  title: "🌸 LINXUU'ya Hoş Geldin {member.name}"
-  description: "{member.mention} aramıza katıldı!\n\n📜 Kuralları okumayı unutma, iyi vakit geçir! 💖"
-  fields:
-    enabled: 1 # True
-    number_of_fields: 1 # 2 entries required for 1 field.
-    entries:
-      - "📝 Senin Sıran:" # Title
-      - "**{count}.üye**" # Value
-    suggested_channels: 1 # True
-    suggested_channels_title: "Önerilen kanallar 👉"
-    suggested_channel_list: # The IDs of Suggested Channels
-      - "1416780730301677630"
-      - "1452224994858893342"
+guild:
+  guild_id: "1416780729127276737"
+  member_count_channel_name: "🌸 Üyeler • {count}"
+  welcomeMessage: # The embed will be sent when the member joins.
+    title: "🌸 LINXUU'ya Hoş Geldin {member.name}"
+    description: "{member.mention} aramıza katıldı!\n\n📜 Kuralları okumayı unutma, iyi vakit geçir! 💖"
+    footer: "LINXUU Ailesi Seni Bekliyordu ✨"
+    banner: "https://media.discordapp.net/attachments/1355878246939361506/1355996244064862509/banner.gif?ex=6948fba9&is=6947aa29&hm=f5b9c41f9d54b7c4ff212c642785e6b42375af44c9963bef7f17e08f8c9fe58c&="
+    fields:
+      enabled: 1 # True
+      number_of_fields: 1 # 2 entries required for 1 field.
+      entries:
+        - "📝 Senin Sıran:" # Title
+        - "**{count}.üye**" # Value
+      suggested_channels: 1 # True
+      suggested_channels_title: "Önerilen kanallar 👉"
+      suggested_channel_list: # The IDs of Suggested Channels
+        - "1416780730301677630"
+        - "1452224994858893342"
 
-  footer: "LINXUU Ailesi Seni Bekliyordu ✨"
-  banner: "https://media.discordapp.net/attachments/1355878246939361506/1355996244064862509/banner.gif?ex=6948fba9&is=6947aa29&hm=f5b9c41f9d54b7c4ff212c642785e6b42375af44c9963bef7f17e08f8c9fe58c&="
 
 channels:
   general: "1416780730301677630"
