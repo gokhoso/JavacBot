@@ -5,6 +5,12 @@ config:
   buffer_size: 100
   service_pool: 4
 
+commands:
+  text_commands:
+    min_length: 3
+    max_length: 15
+    cooldown_pool: 2
+
 guild:
   guild_id: "1416780729127276737"
   member_count_channel_name: "🌸 Üyeler • {count}"
