@@ -4,26 +4,26 @@ import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.events.guild.member.GuildMemberJoinEvent;
 import net.javac.config.ConfigLoader;
-import net.javac.config.ModelConfig.WelcomeMessage.Fields;
+import net.javac.config.ModelConfig.Guild.WelcomeMessage.Fields;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.awt.*;
 
-import static net.javac.utils.TextUtils.setVariable;
+import static net.javac.utils.TextUtils.setAllVariables;
 
 public class WelcomeMessageSender {
-    private static final Logger log = LoggerFactory.getLogger(WelcomeMessageSender.class);
+    static final Logger log = LoggerFactory.getLogger(WelcomeMessageSender.class);
 
     MessageEmbed embed(String guildId, String memberName, String memberId, String avatarUrl) {
-        var wm = ConfigLoader.getData().welcomeMessage;
+        var wm = ConfigLoader.getData().guild.welcomeMessage;
         var embed = new EmbedBuilder();
         // Set embed values
         embed.setAuthor(memberName, null, avatarUrl);
         embed.setColor(Color.magenta);
-        embed.setTitle(setVariable(wm.title, guildId, memberId, memberName));
+        embed.setTitle(setAllVariables(wm.title, guildId, memberId, memberName));
         embed.setThumbnail(avatarUrl);
-        embed.setDescription(setVariable(wm.description, guildId, memberId, memberName));
+        embed.setDescription(setAllVariables(wm.description, guildId, memberId, memberName));
         embed.setFooter(wm.footer);
         // Set embed fields
         embed = setFields(embed, wm.fields, guildId, memberId, memberName);
@@ -80,8 +80,8 @@ public class WelcomeMessageSender {
         }
         // Add fields
         for (int i = 0; i < fields.entries.size(); i = i + 2) {
-            var title = setVariable(fields.entries.get(i), guildId, memberId, memberName);
-            var value = setVariable(fields.entries.get(i + 1), guildId, memberId, memberName);
+            var title = setAllVariables(fields.entries.get(i), guildId, memberId, memberName);
+            var value = setAllVariables(fields.entries.get(i + 1), guildId, memberId, memberName);
 
             embed.addField(title, value, true);
         }
