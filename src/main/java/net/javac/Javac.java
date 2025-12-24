@@ -6,6 +6,8 @@ import net.dv8tion.jda.api.sharding.DefaultShardManagerBuilder;
 import net.dv8tion.jda.api.sharding.ShardManager;
 import net.dv8tion.jda.api.utils.MemberCachePolicy;
 import net.javac.buffer.impl.GuildMessageBuffer;
+import net.javac.command.CommandManager;
+import net.javac.command.general.Ping;
 import net.javac.config.ConfigLoader;
 import net.javac.config.ModelConfig;
 import net.javac.log.LogManager;
@@ -23,6 +25,7 @@ public class Javac {
     final ModelConfig data = ConfigLoader.getData();
     final LogManager logManager = new LogManager();
     final ServiceManager serviceManager = new ServiceManager(data.config.service_pool);
+    final CommandManager commandManager = new CommandManager(data.commands.text_commands.cooldown_pool);
 
     static void main() {
         final var token = dotenv.get("TOKEN");
@@ -56,8 +59,11 @@ public class Javac {
         serviceManager.addService("count", new Count(GuildUtils.getGuild(data.guild.guild_id)));
         serviceManager.start("count");
 
+        // Set up commands
+        commandManager.getRegistry().addCommand("ping", new Ping());
+
         // Add Listener
-        shardManager.addEventListener(new Listener(guildMessageBuffer, logManager));
+        shardManager.addEventListener(new Listener(commandManager, logManager, guildMessageBuffer));
     }
 
     @SuppressWarnings("unused")
