@@ -7,11 +7,11 @@ import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import java.util.Objects;
 
 public class EMessageBuilder {
-    private final String content;
-    private final String messageId;
-    private final String authorId;
-    private final String channelId;
-    private final String guildId;
+    final String content;
+    final String messageId;
+    final String authorId;
+    final String channelId;
+    final String guildId;
 
     public EMessageBuilder(MessageReceivedEvent e) {
         content = e.getMessage().getContentRaw();
