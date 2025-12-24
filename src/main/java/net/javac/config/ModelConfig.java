@@ -6,6 +6,7 @@ import java.util.List;
 public class ModelConfig {
     public Bot bot;
     public Config config;
+    public Commands commands;
     public Guild guild;
     public Channels channels;
     public Roles roles;
@@ -17,6 +18,15 @@ public class ModelConfig {
     public static class Config {
         public int buffer_size;
         public int service_pool;
+    }
+
+    public static class Commands {
+        public TextCommands text_commands;
+        public static class TextCommands {
+            public int min_length;
+            public int max_length;
+            public int cooldown_pool;
+        }
     }
 
     public static class Guild {
