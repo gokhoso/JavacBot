@@ -5,24 +5,23 @@ import java.util.List;
 @SuppressWarnings("unused")
 public class ModelConfig {
     public Bot bot;
-    public Config config;
-    public Commands commands;
+    public Service service;
+    public Command command;
     public Guild guild;
-    public Channels channels;
-    public Roles roles;
+    public Systems systems;
 
     public static class Bot {
         public String prefix;
     }
 
-    public static class Config {
+    public static class Service {
         public int buffer_size;
         public int service_pool;
     }
 
-    public static class Commands {
-        public TextCommands text_commands;
-        public static class TextCommands {
+    public static class Command {
+        public Text text;
+        public static class Text {
             public int min_length;
             public int max_length;
             public int cooldown_pool;
@@ -32,7 +31,42 @@ public class ModelConfig {
     public static class Guild {
         public String guild_id;
         public String member_count_channel_name;
+        public Channels channels;
+        public Roles roles;
+        public static class Channels {
+            public String general;
+            public String log;
+            public String count;
+            public String about;
+            public String rules;
+        }
+
+        public static class Roles {
+            public String member;
+        }
+    }
+
+    public static class Systems {
+        public Bump bump;
         public WelcomeMessage welcomeMessage;
+
+        public static class Bump {
+            public on_bump on_bump;
+            public reminder_bump reminder_bump;
+
+            public static class on_bump {
+                public String title;
+                public String description;
+                public int guild_thumbnail;
+                public String footer;
+            }
+            public static class reminder_bump {
+                public String title;
+                public String description;
+                public int guild_thumbnail;
+                public String footer;
+            }
+        }
 
         public static class WelcomeMessage {
             public String title;
@@ -50,17 +84,6 @@ public class ModelConfig {
                 public List<String> suggested_channel_list;
             }
         }
-    }
 
-    public static class Channels {
-        public String general;
-        public String log;
-        public String count;
-        public String about;
-        public String rules;
-    }
-
-    public static class Roles {
-        public String member;
     }
 }
