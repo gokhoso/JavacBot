@@ -9,15 +9,19 @@ import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.javac.buffer.impl.GuildMessageBuffer;
 import net.javac.command.CommandManager;
 import net.javac.log.LogManager;
+import net.javac.systems.BumpSystem;
 import net.javac.utils.EMessageBuilder;
 import net.javac.systems.WelcomeMessageSender;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.concurrent.ScheduledThreadPoolExecutor;
 
 public class Listener extends ListenerAdapter {
     final CommandManager commandManager;
     final LogManager logManager;
     final GuildMessageBuffer guildMessageBuffer;
     final WelcomeMessageSender welcomeMessageSender = new WelcomeMessageSender();
+    final BumpSystem bumpSystem = new BumpSystem(new ScheduledThreadPoolExecutor(1));
 
     public Listener(CommandManager commandManager, LogManager logManager, GuildMessageBuffer guildMessageBuffer) {
         this.commandManager = commandManager;
@@ -30,6 +34,7 @@ public class Listener extends ListenerAdapter {
         if (event instanceof MessageReceivedEvent messageEvent) {
             guildMessageBuffer.append(messageEvent.getMessageId(), new EMessageBuilder(messageEvent).build());
             commandManager.execute(messageEvent);
+            bumpSystem.send(messageEvent);
         }
 
         if (event instanceof MessageDeleteEvent messageDeleteEvent) {
