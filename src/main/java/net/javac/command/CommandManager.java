@@ -3,7 +3,7 @@ package net.javac.command;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.javac.config.ConfigLoader;
-import net.javac.config.ModelConfig.Commands.TextCommands;
+import net.javac.config.ModelConfig.Command.Text;
 
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 
@@ -11,7 +11,7 @@ public class CommandManager {
     final String prefix = ConfigLoader.getData().bot.prefix;
     final CommandRegistry registry = new CommandRegistry();
     final UserCooldown cooldown;
-    final TextCommands data = ConfigLoader.getData().commands.text_commands;
+    final Text data = ConfigLoader.getData().command.text;
 
     public CommandManager(int pool) {
         cooldown = new UserCooldown(new ScheduledThreadPoolExecutor(pool));
@@ -44,6 +44,7 @@ public class CommandManager {
         final String[] args = parseCommand(msgContent);
         final String commandName = args[0];
         final ICommand command = registry.getCommand(commandName);
+        if (command == null) return;
         command.execute(event);
         cooldown.addCooldown(event.getAuthor().getIdLong(), 10);
     }
