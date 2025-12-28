@@ -30,7 +30,7 @@ public abstract class AbstractLogger<T> {
     }
 
     public TextChannel getLogChannel(Guild guild) {
-        return guild.getTextChannelById(ConfigLoader.getData().channels.log);
+        return guild.getTextChannelById(ConfigLoader.getData().guild.channels.log);
     }
 
     protected EmbedBuilder getLoggerEmbedBuilder(Guild guild, String authorName, String authorAvatarUrl, String authorMention) {
