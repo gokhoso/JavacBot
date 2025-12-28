@@ -10,7 +10,7 @@ import net.javac.buffer.impl.GuildMessageBuffer;
 import net.javac.command.CommandManager;
 import net.javac.log.LogManager;
 import net.javac.utils.EMessageBuilder;
-import net.javac.utils.WelcomeMessageSender;
+import net.javac.systems.WelcomeMessageSender;
 import org.jetbrains.annotations.NotNull;
 
 public class Listener extends ListenerAdapter {
