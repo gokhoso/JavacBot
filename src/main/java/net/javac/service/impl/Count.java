@@ -26,7 +26,7 @@ public class Count implements IService {
 
     public Count(Guild guild) {
         this.guild = guild;
-        channel = guild.getVoiceChannelById(ConfigLoader.getData().channels.count);
+        channel = guild.getVoiceChannelById(ConfigLoader.getData().guild.channels.count);
         initialDelay = 1;
         period = 15;
         timeType = TimeUnit.MINUTES;
