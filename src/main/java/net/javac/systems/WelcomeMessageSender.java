@@ -4,7 +4,7 @@ import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.events.guild.member.GuildMemberJoinEvent;
 import net.javac.config.ConfigLoader;
-import net.javac.config.ModelConfig.Guild.WelcomeMessage.Fields;
+import net.javac.config.ModelConfig.Systems.WelcomeMessage.Fields;
 import net.javac.utils.GuildUtils;
 import net.javac.utils.TextUtils;
 import org.slf4j.Logger;
@@ -18,7 +18,7 @@ public class WelcomeMessageSender {
     static final Logger log = LoggerFactory.getLogger(WelcomeMessageSender.class);
 
     MessageEmbed embed(String guildId, String memberName, String memberId, String avatarUrl) {
-        var wm = ConfigLoader.getData().guild.welcomeMessage;
+        var wm = ConfigLoader.getData().systems.welcomeMessage;
         var embed = new EmbedBuilder();
         // Set embed values
         embed.setAuthor(memberName, null, avatarUrl);
@@ -48,7 +48,7 @@ public class WelcomeMessageSender {
             return;
         }
 
-        var channel = GuildUtils.getTextChannel(guildId, ConfigLoader.getData().channels.general);
+        var channel = GuildUtils.getTextChannel(guildId, ConfigLoader.getData().guild.channels.general);
 
         if (channel == null) {
             log.error("General channel is null [send method]");
