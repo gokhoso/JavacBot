@@ -24,8 +24,8 @@ public class Javac {
     static final Dotenv dotenv = Dotenv.configure().load();
     final ModelConfig data = ConfigLoader.getData();
     final LogManager logManager = new LogManager();
-    final ServiceManager serviceManager = new ServiceManager(data.config.service_pool);
-    final CommandManager commandManager = new CommandManager(data.commands.text_commands.cooldown_pool);
+    final ServiceManager serviceManager = new ServiceManager(data.service.service_pool);
+    final CommandManager commandManager = new CommandManager(data.command.text.cooldown_pool);
 
     static void main() {
         final var token = dotenv.get("TOKEN");
@@ -49,7 +49,7 @@ public class Javac {
         shardManager.getShards().getFirst().getSelfUser().getJDA().awaitReady();
 
         // Set buffer
-        var guildMessageBuffer = new GuildMessageBuffer(data.config.buffer_size);
+        var guildMessageBuffer = new GuildMessageBuffer(data.service.buffer_size);
 
         // Register Logs
         logManager.registerLog(new DeletedMessageLogger(guildMessageBuffer));
