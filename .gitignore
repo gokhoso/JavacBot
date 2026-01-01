@@ -44,3 +44,4 @@ bin/
 
 ## Extra ##
 .env
+config.yml
