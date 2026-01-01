@@ -1,0 +1,74 @@
+bot:
+  prefix: "{Write Prefix Here}"
+
+service:
+  buffer_size: 100 # Max Guild Message Buffer Size (Used to log deleted / edited messages.)
+  service_pool: 4 # Max Service Thread (For Guild Count Service and other Service's)
+
+command:
+  text: # Text commands.
+    min_length: 3 # The min length of a command.
+    max_length: 15 # The max length of a command.
+    cooldown_pool: 2 # User Cooldown System's max Thread number.
+
+## VARIABLES ##
+# Small Note: Member variable is only available for Systems.
+# {guild.name} -> Guild's username.
+# {guild.iconUrl} -> Guild's profile photo.
+# {bot.name} -> Bot's username.
+# {count} -> Number of guild members
+# {count.ordinal_suffix} -> Number of guild members with suffix.
+# {member.name} -> System's event member. (For example, GuildMemberJoinEvent gives us an event.member and MessageReceivedEvent also gives us an event.member)
+# {member.mention} -> Performs the same function as {member.name} but mentions member.
+
+# You cannot use member variables here.
+guild:
+  guild_id: "{Enter your guild id}"
+  member_count_channel_name: "Members • {count}"
+  channels:
+    general: "{General Channel}"
+    log: "{Log Channel}"
+    member_count: "{Member Count Channel.}"
+    about: "{Your About Channel}"
+    rules: "{Rules Channel}"
+
+  roles:
+    member: "{Member ID}"
+
+# SYSTEMS
+# The Systems include a True/False indicator that can be specified with 1 or 0 (guild_thumbnail: 1 -> true.)
+# Additionally, Welcome Message System includes a new feature called fields. You can add as many fields as you want.
+# FIELDS Example: - {FIELD NAME} \n - {FIELD VALUE} (Real usage in the Welcome Message Entries.)
+systems:
+  bump:
+    # The embed will be sent when the bump message is detected.
+    on_bump:
+      title: "Bump Successful!"
+      description: "Thank you for bumping {member.name}."
+      guild_thumbnail: 1
+      footer: "{bot.name} • Bump Service"
+
+    # The embed will be sent to remind bump.
+    reminder_bump:
+      title: "Bump Time!"
+      description: "You can Bump on the Bump Channel!"
+      guild_thumbnail: 1
+      footer: "{bot.name} • Bump Service"
+
+  # The embed will be sent when the member joins.
+  welcomeMessage:
+    title: "Welcome to {guild.name} {member.name}!"
+    description: "{member.mention} has joined us!\n\n📜 Don't forget to read the rules channel! Have fun! 💖"
+    footer: "{bot.name} • Welcome System"
+    banner: ""
+    fields:
+      enabled: 1 # True
+      number_of_fields: 1 # 2 entries required for 1 field.
+      entries:
+        - "📝 You are the:" # Title
+        - "**{count.ordinal_suffix} member!" # Value
+      suggested_channels: 1 # True
+      suggested_channels_title: "Suggested Channels 👉"
+      suggested_channel_list: # The IDs of Suggested Channels
+        - "{Suggested Channel ID 1}"
+        - "{Suggested Channel ID 2}"
