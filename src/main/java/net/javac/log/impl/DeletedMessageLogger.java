@@ -53,6 +53,7 @@ public class DeletedMessageLogger extends AbstractLogger<MessageDeleteEvent> {
     public void log(MessageDeleteEvent event) {
         try {
             init(event.getGuild().getId(), event.getMessageId());
+            if (message.content().isBlank()) return;
             final var embed = embed();
             final var logChannel = getLogChannel(guild);
             logChannel.sendMessageEmbeds(embed).queue();
