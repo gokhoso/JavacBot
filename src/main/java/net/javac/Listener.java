@@ -10,8 +10,8 @@ import net.javac.buffer.impl.GuildMessageBuffer;
 import net.javac.command.CommandManager;
 import net.javac.log.LogManager;
 import net.javac.systems.BumpSystem;
-import net.javac.utils.EMessageBuilder;
 import net.javac.systems.WelcomeMessageSender;
+import net.javac.utils.EMessageBuilder;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.concurrent.ScheduledThreadPoolExecutor;
