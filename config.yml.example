@@ -1,5 +1,5 @@
 bot:
-  prefix: "{Write Prefix Here}"
+  prefix: "Enter your Prefix Here"
 
 service:
   buffer_size: 100 # Max Guild Message Buffer Size (Used to log deleted / edited messages.)
@@ -23,17 +23,15 @@ command:
 
 # You cannot use member variables here.
 guild:
-  guild_id: "{Enter your guild id}"
+  guild_id: "Enter your guild id"
   member_count_channel_name: "Members • {count}"
   channels:
-    general: "{General Channel}"
-    log: "{Log Channel}"
-    member_count: "{Member Count Channel.}"
-    about: "{Your About Channel}"
-    rules: "{Rules Channel}"
+    general: "Enter your General Channel"
+    log: "Enter your Log Channel"
+    member_count: "Enter your Member Count Channel"
 
   roles:
-    member: "{Member ID}"
+    member: "Enter your Member ID"
 
 # SYSTEMS
 # The Systems include a True/False indicator that can be specified with 1 or 0 (guild_thumbnail: 1 -> true.)
@@ -45,6 +43,7 @@ systems:
     on_bump:
       title: "Bump Successful!"
       description: "Thank you for bumping {member.name}."
+      color: "cyan"
       guild_thumbnail: 1
       footer: "{bot.name} • Bump Service"
 
@@ -52,6 +51,7 @@ systems:
     reminder_bump:
       title: "Bump Time!"
       description: "You can Bump on the Bump Channel!"
+      color: "cyan"
       guild_thumbnail: 1
       footer: "{bot.name} • Bump Service"
 
@@ -59,16 +59,16 @@ systems:
   welcomeMessage:
     title: "Welcome to {guild.name} {member.name}!"
     description: "{member.mention} has joined us!\n\n📜 Don't forget to read the rules channel! Have fun! 💖"
+    color: "cyan"
     footer: "{bot.name} • Welcome System"
     banner: ""
     fields:
       enabled: 1 # True
-      number_of_fields: 1 # 2 entries required for 1 field.
       entries:
         - "📝 You are the:" # Title
         - "**{count.ordinal_suffix} member!" # Value
       suggested_channels: 1 # True
       suggested_channels_title: "Suggested Channels 👉"
       suggested_channel_list: # The IDs of Suggested Channels
-        - "{Suggested Channel ID 1}"
-        - "{Suggested Channel ID 2}"
+        - "Enter your Suggested Channel ID 1"
+        - "Enter your Suggested Channel ID 2"
