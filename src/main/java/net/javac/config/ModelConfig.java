@@ -36,9 +36,7 @@ public class ModelConfig {
         public static class Channels {
             public String general;
             public String log;
-            public String count;
-            public String about;
-            public String rules;
+            public String member_count;
         }
 
         public static class Roles {
@@ -57,12 +55,14 @@ public class ModelConfig {
             public static class on_bump {
                 public String title;
                 public String description;
+                public String color;
                 public int guild_thumbnail;
                 public String footer;
             }
             public static class reminder_bump {
                 public String title;
                 public String description;
+                public String color;
                 public int guild_thumbnail;
                 public String footer;
             }
@@ -71,13 +71,13 @@ public class ModelConfig {
         public static class WelcomeMessage {
             public String title;
             public String description;
+            public String color;
             public Fields fields;
             public String footer;
             public String banner;
 
             public static class Fields {
                 public int enabled;
-                public int number_of_fields;
                 public List<String> entries;
                 public int suggested_channels;
                 public String suggested_channels_title;
