@@ -3,7 +3,7 @@ package net.javac.config;
 import java.util.List;
 
 @SuppressWarnings("unused")
-public class ModelConfig {
+public class ConfigData {
     public Bot bot;
     public Service service;
     public Command command;
