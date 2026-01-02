@@ -1,6 +1,6 @@
 <img width="1200" height="500" alt="JavacBotLogo" src="https://github.com/user-attachments/assets/a7ec50a1-b74a-49c2-86f2-a8732dd8f235" />
 
-# 🌟 JavacBot: A Highly customizable bot.
+# 🌟 JavacBot: A Highly customizable Discord bot.
 
 ### Features:
 `>_` Code Features: <br/>
