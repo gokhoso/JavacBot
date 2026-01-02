@@ -4,101 +4,71 @@ import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.events.guild.member.GuildMemberJoinEvent;
 import net.javac.config.ConfigLoader;
-import net.javac.config.ModelConfig.Systems.WelcomeMessage.Fields;
 import net.javac.utils.GuildUtils;
 import net.javac.utils.TextUtils;
+import net.javac.utils.TextVariables;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.awt.*;
-
-import static net.javac.utils.TextUtils.setAllVariables;
+import java.util.List;
 
 public class WelcomeMessageSender {
     static final Logger log = LoggerFactory.getLogger(WelcomeMessageSender.class);
+    private final TextVariables textVariables = new TextVariables();
 
-    MessageEmbed embed(String guildId, String memberName, String memberId, String avatarUrl) {
-        var wm = ConfigLoader.getData().systems.welcomeMessage;
-        var embed = new EmbedBuilder();
-        // Set embed values
-        embed.setAuthor(memberName, null, avatarUrl);
-        embed.setColor(Color.magenta);
-        embed.setTitle(setAllVariables(wm.title, guildId, memberId, memberName));
-        embed.setThumbnail(avatarUrl);
-        embed.setDescription(setAllVariables(wm.description, guildId, memberId, memberName));
-        embed.setFooter(wm.footer);
-        // Set embed fields
-        embed = setFields(embed, wm.fields, guildId, memberId, memberName);
-        if (embed == null) {
-            return null;
+    MessageEmbed embed(String name, String avatarUrl, String image, Color color, String title, String description, String footer) {
+        final var embedBuilder = new EmbedBuilder()
+                .setAuthor(name, null, avatarUrl)
+                .setColor(color)
+                .setTitle(title)
+                .setImage(image)
+                .setDescription(description)
+                .setFooter(footer);
+
+        if (avatarUrl != null) embedBuilder.setThumbnail(avatarUrl);
+
+        final var fields = ConfigLoader.getData().systems.welcomeMessage.fields;
+        if (fields.enabled == 1) addFields(embedBuilder, fields.entries);
+        if (fields.suggested_channels == 1) addSuggestedChannels(embedBuilder, fields.suggested_channels_title, fields.suggested_channel_list);
+
+        return embedBuilder.build();
+    }
+
+    void addFields(EmbedBuilder embedBuilder, List<String> entries) {
+        for (int i = 0; i < entries.size(); i = i+2) {
+            embedBuilder.addField(textVariables.apply(entries.get(i)), textVariables.apply(entries.get(i+1)), true);
         }
-        return embed.build();
+    }
+
+    void addSuggestedChannels(EmbedBuilder embedBuilder, String suggestedChannelTitle, List<String> suggestedChannels){
+        String finalChannels = "";
+        for (String suggestedChannel : suggestedChannels) {
+            finalChannels = finalChannels.concat(" " + TextUtils.createChannelMention(suggestedChannel));
+        }
+        embedBuilder.addField(suggestedChannelTitle, finalChannels, false);
     }
 
     public void send(GuildMemberJoinEvent e) {
         final String guildId = e.getGuild().getId();
         final String memberId = e.getMember().getId();
-        final String memberName = e.getMember().getUser().getName();
+        final String name = e.getMember().getUser().getName();
         final String avatarUrl = e.getMember().getEffectiveAvatarUrl();
+        final String image = ConfigLoader.getData().systems.welcomeMessage.banner;
+        final Color color = Color.CYAN;
+        textVariables.member(memberId, name).guild(guildId);
 
-        var embed = embed(guildId, memberName, memberId, avatarUrl);
-
-        if (embed == null) {
-            log.error("Embed is null, send failed.");
-            return;
-        }
+        final var wm = ConfigLoader.getData().systems.welcomeMessage;
+        var title = textVariables.apply(wm.title);
+        var description = textVariables.apply(wm.description);
+        var footer = textVariables.apply(wm.footer);
+        var embed = embed(name, avatarUrl, image, color, title, description, footer);
 
         var channel = GuildUtils.getTextChannel(guildId, ConfigLoader.getData().guild.channels.general);
-
         if (channel == null) {
             log.error("General channel is null [send method]");
             return;
         }
-
         channel.sendMessageEmbeds(embed).queue();
-    }
-
-    private EmbedBuilder setFields(EmbedBuilder embed, Fields fields, String guildId, String memberId, String memberName) {
-        // Fields disabled
-        if (fields.enabled == 0) {
-            return embed;
-        }
-        // Check for valid values
-        if (fields.number_of_fields < 1) {
-            log.warn("Number of fields must be greater than 0");
-            return null;
-        }
-        if (fields.entries.size() < 2) {
-            log.warn("Entries must be greater than 1 (2 entries = 1 field)");
-            return null;
-        }
-        if (fields.entries.size() % 2 != 0) {
-            log.warn("Entries must pair (2 entries = 1 field)");
-            return null;
-        }
-        if (fields.entries.size() > 10) {
-            log.warn("Field size must be lower than 10");
-            return null;
-        }
-        // Add fields
-        for (int i = 0; i < fields.entries.size(); i = i + 2) {
-            var title = setAllVariables(fields.entries.get(i), guildId, memberId, memberName);
-            var value = setAllVariables(fields.entries.get(i + 1), guildId, memberId, memberName);
-
-            embed.addField(title, value, true);
-        }
-        // Check if it is empty
-        if (fields.suggested_channel_list.isEmpty()) {
-            log.warn("Suggested Channel List is empty!");
-            return null;
-        }
-        // Add suggested Channels to list
-        String suggestedChannels = " ";
-        for (int i = 0; i < fields.suggested_channel_list.size(); i++) {
-            suggestedChannels = suggestedChannels.concat(" " + TextUtils.createChannelMention(fields.suggested_channel_list.get(i)));
-        }
-        // Add suggested channels to field
-        embed.addField(fields.suggested_channels_title, suggestedChannels, false);
-        return embed;
     }
 }
