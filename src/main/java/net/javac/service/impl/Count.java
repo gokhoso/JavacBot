@@ -6,7 +6,7 @@ import net.javac.config.ConfigLoader;
 import net.javac.config.ModelConfig;
 import net.javac.service.IService;
 import net.javac.utils.GuildUtils;
-import net.javac.utils.TextUtils;
+import net.javac.utils.TextVariables;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -17,6 +17,7 @@ import java.util.concurrent.TimeUnit;
 public class Count implements IService {
     private final Logger logger = LoggerFactory.getLogger(Count.class);
     private final ModelConfig data = ConfigLoader.getData();
+    private final TextVariables textVariables = new TextVariables();
     private final Guild guild;
     private final VoiceChannel channel;
     private final int initialDelay;
@@ -26,7 +27,8 @@ public class Count implements IService {
 
     public Count(Guild guild) {
         this.guild = guild;
-        channel = guild.getVoiceChannelById(ConfigLoader.getData().guild.channels.count);
+        textVariables.guild(guild.getId());
+        channel = guild.getVoiceChannelById(ConfigLoader.getData().guild.channels.member_count);
         initialDelay = 1;
         period = 15;
         timeType = TimeUnit.MINUTES;
@@ -39,7 +41,7 @@ public class Count implements IService {
             return null;
         }
         return () -> {
-            final String channelName = TextUtils.setCountVariable(data.guild.member_count_channel_name, guild.getId());
+            final String channelName = textVariables.apply(data.guild.member_count_channel_name);
             final int count = GuildUtils.getCount(guild.getId());
             logger.info("Updating member count to {}", count);
             channel.getManager().setName(channelName).queue();
