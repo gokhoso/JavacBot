@@ -4,6 +4,7 @@
 
 ### Features:
 `>_` Code Features: <br/>
+✅ Zero Vibe Coding<br/>
 ✅ SnakeYaml Class Configuration<br/> 
 ✅ Buffering<br/> 
 ✅ Abstract Logging Interface<br/> 
