@@ -69,6 +69,7 @@ public class UpdatedMessageLogger extends AbstractLogger<MessageUpdateEvent> {
     @Override
     public void log(MessageUpdateEvent event) {
         init(event.getMessage());
+        if (oldMessage.content().equals(newMessage.getContentRaw())) return;
         if (!isEdited()) return;
         createMessage(event);
         final var embed = embed();
