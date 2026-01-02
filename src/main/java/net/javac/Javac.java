@@ -10,7 +10,7 @@ import net.javac.command.CommandManager;
 import net.javac.command.general.Ping;
 import net.javac.command.utility.SendEmbed;
 import net.javac.config.ConfigLoader;
-import net.javac.config.ModelConfig;
+import net.javac.config.ConfigData;
 import net.javac.log.LogManager;
 import net.javac.log.impl.DeletedMessageLogger;
 import net.javac.log.impl.UpdatedMessageLogger;
@@ -23,7 +23,7 @@ import java.util.Arrays;
 public class Javac {
     static final Dotenv dotenv = Dotenv.configure().load();
     static ShardManager shardManager;
-    final ModelConfig data = ConfigLoader.getData();
+    final ConfigData data = ConfigLoader.getData();
     final LogManager logManager = new LogManager();
     final ServiceManager serviceManager = new ServiceManager(data.service.service_pool);
     final CommandManager commandManager = new CommandManager(data.command.text.cooldown_pool);

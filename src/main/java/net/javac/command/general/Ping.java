@@ -4,10 +4,10 @@ import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.javac.command.CommandInformation;
 import net.javac.command.ICommand;
 import net.javac.config.ConfigLoader;
-import net.javac.config.ModelConfig;
+import net.javac.config.ConfigData;
 
 public class Ping implements ICommand {
-    final ModelConfig data = ConfigLoader.getData();
+    final ConfigData data = ConfigLoader.getData();
     @Override
     public CommandInformation getInformation() {
         return new CommandInformation("ping", "Replies with pong", data.bot.prefix + "ping");

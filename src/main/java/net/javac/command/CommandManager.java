@@ -3,7 +3,7 @@ package net.javac.command;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.javac.config.ConfigLoader;
-import net.javac.config.ModelConfig.Command.Text;
+import net.javac.config.ConfigData.Command.Text;
 
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 

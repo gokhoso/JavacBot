@@ -11,18 +11,18 @@ import java.io.IOException;
 
 public class ConfigLoader {
     private final static Logger logger = LoggerFactory.getLogger(ConfigLoader.class);
-    private static ModelConfig data;
+    private static ConfigData data;
 
     static {
         Yaml yaml = new Yaml();
         try (BufferedReader input = new BufferedReader(new FileReader("config.yml"))) {
-            data = yaml.loadAs(input, ModelConfig.class);
+            data = yaml.loadAs(input, ConfigData.class);
         } catch (IOException e) {
             logger.error(e.getMessage());
         }
     }
 
-    public static ModelConfig getData() {
+    public static ConfigData getData() {
         return data;
     }
 }

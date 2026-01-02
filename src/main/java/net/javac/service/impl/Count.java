@@ -3,7 +3,7 @@ package net.javac.service.impl;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.channel.concrete.VoiceChannel;
 import net.javac.config.ConfigLoader;
-import net.javac.config.ModelConfig;
+import net.javac.config.ConfigData;
 import net.javac.service.IService;
 import net.javac.utils.GuildUtils;
 import net.javac.utils.TextVariables;
@@ -16,7 +16,7 @@ import java.util.concurrent.TimeUnit;
 
 public class Count implements IService {
     private final Logger logger = LoggerFactory.getLogger(Count.class);
-    private final ModelConfig data = ConfigLoader.getData();
+    private final ConfigData data = ConfigLoader.getData();
     private final TextVariables textVariables = new TextVariables();
     private final Guild guild;
     private final VoiceChannel channel;
