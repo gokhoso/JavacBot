@@ -30,6 +30,12 @@ public class TextVariables {
         return this;
     }
 
+    @SuppressWarnings("UnusedReturnValue")
+    public TextVariables custom(String variable, Supplier<String> value) {
+        map.put(variable, value);
+        return this;
+    }
+
     @SuppressWarnings("unused")
     public boolean isEmpty() {
         return map.isEmpty();
