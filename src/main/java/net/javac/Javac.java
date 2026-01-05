@@ -8,7 +8,8 @@ import net.dv8tion.jda.api.utils.MemberCachePolicy;
 import net.javac.buffer.impl.GuildMessageBuffer;
 import net.javac.command.CommandManager;
 import net.javac.command.general.Ping;
-import net.javac.command.utility.SendEmbed;
+import net.javac.command.owner.SendEmbed;
+import net.javac.command.utility.Help;
 import net.javac.config.ConfigLoader;
 import net.javac.config.ConfigData;
 import net.javac.log.LogManager;
@@ -27,7 +28,6 @@ public class Javac {
     final LogManager logManager = new LogManager();
     final ServiceManager serviceManager = new ServiceManager(data.service.service_pool);
     final CommandManager commandManager = new CommandManager(data.command.text.cooldown_pool);
-
 
     static void main() {
         final var token = dotenv.get("TOKEN");
@@ -107,12 +107,13 @@ public class Javac {
         logManager.registerLog(new UpdatedMessageLogger(guildMessageBuffer));
 
         // Set up and start the services
-        serviceManager.addService("count", new Count(GuildUtils.getGuild(data.guild.guild_id)));
+        serviceManager.addService(new Count(GuildUtils.getGuild(data.guild.guild_id)));
         serviceManager.start("count");
 
         // Set up commands
-        commandManager.getRegistry().addCommand("ping", new Ping());
-        commandManager.getRegistry().addCommand("sendEmbed", new SendEmbed());
+        commandManager.getRegistry().addCommand(new Ping());
+        commandManager.getRegistry().addCommand(new SendEmbed());
+        commandManager.getRegistry().addCommand(new Help());
 
         // Add Listener
         shardManager.addEventListener(new Listener(commandManager, logManager, guildMessageBuffer));
