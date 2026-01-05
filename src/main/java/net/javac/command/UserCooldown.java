@@ -45,7 +45,6 @@ public class UserCooldown {
             } else {
                 cooldowns.replace(id, cooldown-50);
             }
-            System.out.println("Cooldown: " + cooldowns.get(id));
         }
         return onCooldown;
     }
