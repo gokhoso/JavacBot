@@ -20,6 +20,7 @@ public class BumpSystem {
         this.scheduledExecutorService = scheduledExecutorService;
     }
 
+
     MessageEmbed onBumpEmbed(String name, String avatarUrl, String image, String title, String description, Color color, String iconUrl, String footer) {
         return new EmbedBuilder()
         .setTitle(title)
