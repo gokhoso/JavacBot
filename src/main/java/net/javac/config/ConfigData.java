@@ -11,6 +11,7 @@ public class ConfigData {
     public Systems systems;
 
     public static class Bot {
+        public List<String> owners;
         public String prefix;
     }
 
@@ -20,7 +21,16 @@ public class ConfigData {
     }
 
     public static class Command {
+        public String on_cooldown;
         public Text text;
+        public HelpCommand help_command;
+        public static class HelpCommand {
+            public String title;
+            public String description;
+            public int bot_thumbnail;
+            public String color;
+            public String footer;
+        }
         public static class Text {
             public int min_length;
             public int max_length;
@@ -31,6 +41,7 @@ public class ConfigData {
     public static class Guild {
         public String guild_id;
         public String member_count_channel_name;
+        public int channels_enabled;
         public Channels channels;
         public Roles roles;
         public static class Channels {
@@ -57,6 +68,7 @@ public class ConfigData {
                 public String description;
                 public String color;
                 public int guild_thumbnail;
+                public String image;
                 public String footer;
             }
             public static class reminder_bump {
@@ -64,6 +76,7 @@ public class ConfigData {
                 public String description;
                 public String color;
                 public int guild_thumbnail;
+                public String image;
                 public String footer;
             }
         }

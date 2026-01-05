@@ -35,6 +35,11 @@ public class Count implements IService {
     }
 
     @Override
+    public String getName() {
+        return "count";
+    }
+
+    @Override
     public Runnable service() {
         if (channel == null) {
             logger.error("Voice channel is null! failed to set member count");
