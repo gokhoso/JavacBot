@@ -1,11 +1,43 @@
+#         ____.
+#        |    |____ ___  _______    ____
+#        |    \__  \\  \/ /\__  \ _/ ___\
+#    /\__|    |/ __ \\   /  / __ \\  \___
+#    \________(____  /\_/  (____  /\___  >
+#                  \/           \/     \/
+
+# The Config include a True/False indicator that can be specified with 1 or 0 e.g: "guild_thumbnail: 1 -> true"
+# FOR A GOOD EXPERIENCE, PLEASE USE THE SPECIAL VARIABLES AND READ ALL COMMENT LINES.
+# WARNING: SPECIAL VARIABLES MUST ONLY BE USED FOR MESSAGE OR CHANNEL NAME.
+# GLOBAL SPECIAL VARIABLES
+# -- {guild.name} -- Guild's username.
+# -- {guild.iconUrl} -- Guild's profile photo.
+# -- {bot.name} -- Bot's username.
+# -- {count} -- Number of guild members
+# -- {count.ordinal_suffix} -- Number of guild members with suffix.
+
 bot:
+  owners:
+    - ""
+    - ""
   prefix: "Enter your Prefix Here"
 
 service:
   buffer_size: 100 # Max Guild Message Buffer Size (Used to log deleted / edited messages.)
   service_pool: 4 # Max Service Thread (For Guild Count Service and other Service's)
 
+## SPECIAL COMMAND VARIABLES ##
+# -- {member.name} -- System's event member. (For example, GuildMemberJoinEvent gives us an event.member and MessageReceivedEvent also gives us an event.member)
+# -- {member.mention} -- Performs the same  function as {member.name} but mentions member.
 command:
+  on_cooldown: "You are in cooldown."
+  ## SPECIAL HELP COMMAND VARIABLES ##
+  # -- {commands}
+  help_command:
+    title: "Command List:"
+    description: "{commands}"
+    bot_thumbnail: 1
+    color: "pink"
+    footer: "{bot.name} • Help Command"
   text: # Text commands.
     min_length: 3 # The min length of a command.
     max_length: 15 # The max length of a command.
@@ -20,8 +52,6 @@ command:
 # {count.ordinal_suffix} -> Number of guild members with suffix.
 # {member.name} -> System's event member. (For example, GuildMemberJoinEvent gives us an event.member and MessageReceivedEvent also gives us an event.member)
 # {member.mention} -> Performs the same function as {member.name} but mentions member.
-
-# You cannot use member variables here.
 guild:
   guild_id: "Enter your guild id"
   member_count_channel_name: "Members • {count}"
@@ -34,9 +64,12 @@ guild:
     member: "Enter your Member ID"
 
 # SYSTEMS
-# The Systems include a True/False indicator that can be specified with 1 or 0 (guild_thumbnail: 1 -> true.)
-# Additionally, Welcome Message System includes a new feature called fields. You can add as many fields as you want.
+# Welcome Message System includes a new feature called fields. You can add as many fields as you want.
 # FIELDS Example: - {FIELD NAME} \n - {FIELD VALUE} (Real usage in the Welcome Message Entries.)
+
+## SPECIAL SYSTEM VARIABLES ##
+# -- {member.name} -- System's event member. (For example, GuildMemberJoinEvent gives us an event.member and MessageReceivedEvent also gives us an event.member)
+# -- {member.mention} -- Performs the same  function as {member.name} but mentions member.
 systems:
   bump:
     # The embed will be sent when the bump message is detected.
@@ -45,6 +78,7 @@ systems:
       description: "Thank you for bumping {member.name}."
       color: "cyan"
       guild_thumbnail: 1
+      image: ""
       footer: "{bot.name} • Bump Service"
 
     # The embed will be sent to remind bump.
@@ -53,6 +87,7 @@ systems:
       description: "You can Bump on the Bump Channel!"
       color: "cyan"
       guild_thumbnail: 1
+      image: ""
       footer: "{bot.name} • Bump Service"
 
   # The embed will be sent when the member joins.
@@ -67,8 +102,8 @@ systems:
       entries:
         - "📝 You are the:" # Title
         - "**{count.ordinal_suffix} member!" # Value
-      suggested_channels: 1 # True
+      suggested_channels: 1
       suggested_channels_title: "Suggested Channels 👉"
-      suggested_channel_list: # The IDs of Suggested Channels
+      suggested_channel_list:
         - "Enter your Suggested Channel ID 1"
         - "Enter your Suggested Channel ID 2"
