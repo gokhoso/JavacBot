@@ -15,8 +15,8 @@ public class ServiceManager {
         this.scheduledExecutorService = new ScheduledThreadPoolExecutor(poolSize);
     }
 
-    public void addService(String name, IService service) {
-        serviceRegistry.addCache(name, service);
+    public void addService(IService service) {
+        serviceRegistry.addCache(service.getName(), service);
     }
 
     public IService getService(String name) {
