@@ -8,7 +8,6 @@ import net.dv8tion.jda.api.utils.MemberCachePolicy;
 import net.javac.buffer.impl.GuildMessageBuffer;
 import net.javac.command.CommandManager;
 import net.javac.command.general.Ping;
-import net.javac.command.owner.SendEmbed;
 import net.javac.command.utility.Help;
 import net.javac.config.ConfigLoader;
 import net.javac.config.ConfigData;
@@ -112,7 +111,6 @@ public class Javac {
 
         // Set up commands
         commandManager.getRegistry().addCommand(new Ping());
-        commandManager.getRegistry().addCommand(new SendEmbed());
         commandManager.getRegistry().addCommand(new Help());
 
         // Add Listener
